@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -17,11 +18,19 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const exerciseRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
+const exerciseRouter = require("./routes/exercises");
+const usersRouter = require("./routes/users");
 
-app.use('/exercises', exerciseRouter);
-app.use('/users', usersRouter);
+app.use("/exercises", exerciseRouter);
+app.use("/users", usersRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+  });
+}
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

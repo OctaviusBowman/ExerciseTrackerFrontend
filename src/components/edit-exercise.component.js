@@ -24,7 +24,7 @@ export default class EditExercises extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/exercises/" + this.props.match.params.id)
+      .get("https://exercise-tracker-back.herokuapp.com/exercises/" + this.props.match.params.id)
       .then(response => {
         this.setState({
           username: response.data.username,
@@ -37,7 +37,7 @@ export default class EditExercises extends Component {
         console.log(error);
       });
 
-    axios.get("http://localhost:5000/users/").then(response => {
+    axios.get("https://exercise-tracker-back.herokuapp.com/users/").then(response => {
       if (response.data.length > 0) {
         this.setState({
           users: response.data.map(user => user.username)
@@ -80,7 +80,7 @@ export default class EditExercises extends Component {
 
     axios
       .post(
-        "http://localhost:5000/exercises/update/" + this.props.match.params.id,
+        "https://exercise-tracker-back.herokuapp.com/exercises/update/" + this.props.match.params.id,
         exercise
       )
       .then(res => console.log(res.data));

@@ -13,15 +13,14 @@ const Exercise = props => (
         edit
       </Link>{" "}
       |{" "}
-      <a
-        href="#"
+      <button
         className="btn btn-danger"
         onClick={() => {
           props.deleteExercise(props.exercise._id);
         }}
       >
         delete
-      </a>
+      </button>
     </td>
   </tr>
 );
